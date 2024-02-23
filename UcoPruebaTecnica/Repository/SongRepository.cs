@@ -43,5 +43,24 @@ namespace UcoPruebaTecnica.Repository
             }
             return response;
         }
+
+        public DataSet GetSong(string nombre)
+        {
+            DataSet ds = new();
+
+            using SqlConnection sql = new(_connectionString);
+            using SqlCommand cmd = new("uspCancionFind", sql);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add(new SqlParameter("@Nombre", nombre));
+
+            sql.Open();
+            SqlDataAdapter da = new(cmd);
+            da.Fill(ds);
+
+            sql.Close();
+            return ds;
+        }
     }   
 }

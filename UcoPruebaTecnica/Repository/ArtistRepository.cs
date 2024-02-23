@@ -44,5 +44,24 @@ namespace UcoPruebaTecnica.Repository
             sql.Close();
             return response;
         }
+
+        public DataSet GetArtist(string nombre)
+        {
+            DataSet ds = new();
+
+            using SqlConnection sql = new(_connectionString);
+            using SqlCommand cmd = new("uspArtistaFind", sql);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add(new SqlParameter("@Nombre", nombre));
+      
+            sql.Open();
+            SqlDataAdapter da = new(cmd);
+            da.Fill(ds);
+
+            sql.Close();
+            return ds;
+        }
     }   
 }

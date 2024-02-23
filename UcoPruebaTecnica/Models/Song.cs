@@ -5,6 +5,7 @@
     {
         public long IdCancion { get; set; }
         public long IdArtista { get; set; }
+        public string NombreArtista { get; set; }
         public string Nombre { get; set; } 
         public string Duracion { get; set; }
     }    

@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Artista";
+    ViewData["Title"] = "Listado de Artistas";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Gestión de Artistas</h1>
+    <div style="float:right">
+        <button class="btn btn-primary" onclick="location.href = '../Artist/Nuevo'"> Nuevo </button>
+    </div>
+    <br />
+    <br />
+    <div class="alert alert-@ViewBag.alerta"> -- <b>@ViewBag.res</b> --</div>
+</div>

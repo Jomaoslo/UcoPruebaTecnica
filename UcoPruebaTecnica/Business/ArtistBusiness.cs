@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using UcoPruebaTecnica.Models;
 using UcoPruebaTecnica.Repository;
 
@@ -21,7 +23,6 @@ namespace UcoPruebaTecnica.Business
             {
                 artist.IdArtista = 0;
                 response = _artistRepository.Artist(artist, false);
-                return response;
             }
             catch (Exception ex)
             {
@@ -38,7 +39,6 @@ namespace UcoPruebaTecnica.Business
             try
             {
                 response = _artistRepository.Artist(artist, false);
-                return response;
             }
             catch (Exception ex)
             {
@@ -55,7 +55,6 @@ namespace UcoPruebaTecnica.Business
             try
             {
                 response = _artistRepository.Artist(artist, true);
-                return response;
             }
             catch (Exception ex)
             {
@@ -63,6 +62,36 @@ namespace UcoPruebaTecnica.Business
                 response = new Response { State = false, Code = 400, Messsage = result };
             }
             return response;
+        }
+
+        /// Método consultar un artista
+        public (Response, List<Artist>) GetArtist(string nombre)
+        {
+            Response response;
+            List<Artist> artist = new();
+            try
+            {
+                var ds = _artistRepository.GetArtist(nombre);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
+                {
+                    Artist objArtist = new()
+                    {
+                        IdArtista = Convert.ToInt64(row["IdArtista"]),
+                        Nombre = row["Nombre"].ToString(),
+                        Pais = row["Pais"].ToString().ToString(),
+                        CasaDisquera = row["CasaDisquera"].ToString()
+                    };
+                    artist.Add(objArtist);
+                }
+                response = new Response { State = true, Code = 200, Messsage = "Consulta existosa" };
+            }
+            catch (Exception ex)
+            {
+                string result = ex.Message.ToString();
+                response = new Response { State = false, Code = 400, Messsage = result };
+            }
+            return (response, artist);
         }
     } 
 }

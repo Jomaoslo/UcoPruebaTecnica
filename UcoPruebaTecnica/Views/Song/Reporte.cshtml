@@ -1,0 +1,34 @@
+﻿@model List<UcoPruebaTecnica.Models.Song>
+@{
+    ViewBag.Title = "Canción";    
+    ViewData["Title"] = "Listado de Canciones x Artistas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Canciones x Artista</h1>    
+    <br />
+    <br />
+    <div class="alert alert-@ViewBag.alerta"> -- <b>@ViewBag.res</b> --</div>
+</div>
+<div class="text-center">
+    <table id="tablaCancion" class="table table-bordered">
+        <thead>
+            <tr>
+                <td>Artista</td>
+                <td>Cancion</td>
+                <td>Duración</td>                
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Model)
+            {
+                <tr>
+                    <td>@row.NombreArtista</td>
+                    <td>@row.Nombre</td>
+                    <td>@row.Duracion</td>                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

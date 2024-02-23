@@ -124,5 +124,19 @@ namespace UcoPruebaTecnica.Controllers
 
             return RedirectToAction("Index", "Song");
         }
+
+        public IActionResult Reporte()
+        {
+            ViewBag.alerta = "info";
+            ViewBag.res = "Listado de Canciones x Artista";
+
+            var response = _songBusiness.GetCancionesxArtista();
+            if (!response.Item1.State)
+            {
+                ViewBag.alerta = "danger";
+                ViewBag.res = response.Item1.Messsage;
+            }
+            return View(response.Item2);
+        }
     }
 }

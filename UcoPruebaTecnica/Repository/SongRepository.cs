@@ -62,5 +62,22 @@ namespace UcoPruebaTecnica.Repository
             sql.Close();
             return ds;
         }
+
+        public DataSet GetCancionesxArtista()
+        {
+            DataSet ds = new();
+
+            string query = "SELECT * FROM viewCancionxArtista ORDER BY NombreArtista, Nombre";
+
+            using SqlConnection sql = new(_connectionString);
+            using SqlCommand cmd = new(query, sql);
+
+            sql.Open();
+            SqlDataAdapter da = new(cmd);
+            da.Fill(ds);
+
+            sql.Close();
+            return ds;
+        }
     }   
 }

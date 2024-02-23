@@ -42,7 +42,7 @@ namespace UcoPruebaTecnica.Controllers
         [HttpPost]
         public IActionResult Nuevo(long idArtista, string nombre, string duracion)
         {
-            ViewBag.alerta = "info";
+            ViewBag.alerta = "success";
 
             Song song = new()
             {
@@ -53,7 +53,7 @@ namespace UcoPruebaTecnica.Controllers
             };
             var response = _songBusiness.AddSong(song);
             ViewBag.res = response.Messsage;
-            if (!response.State)            
+            if (!response.State)         
                 ViewBag.alerta = "danger";                
             
             return View();
@@ -76,8 +76,6 @@ namespace UcoPruebaTecnica.Controllers
         [HttpPost]
         public IActionResult Actualizar(long idCancion, long idArtista, string nombre, string duracion)
         {
-            ViewBag.alerta = "info";
-
             Song song = new()
             {
                 IdCancion = idCancion,
@@ -86,7 +84,10 @@ namespace UcoPruebaTecnica.Controllers
                 Duracion = duracion
             };
             var response = _songBusiness.UpdSong(song);
+
+            ViewBag.alerta = "success";
             ViewBag.res = response.Messsage;
+
             if (!response.State)
                 ViewBag.alerta = "danger";
 
@@ -95,9 +96,6 @@ namespace UcoPruebaTecnica.Controllers
 
         public IActionResult Eliminar(long idCancion)
         {
-            ViewBag.alerta = "info";
-            ViewBag.res = "Actualizar Artista";
-
             Song song = new()
             {
                 IdCancion = idCancion,
@@ -106,7 +104,10 @@ namespace UcoPruebaTecnica.Controllers
                 Duracion = string.Empty
             };
             var response = _songBusiness.DelSong(song);
+
+            ViewBag.alerta = "success";
             ViewBag.res = response.Messsage;
+
             if (!response.State)
                 ViewBag.alerta = "danger";
 

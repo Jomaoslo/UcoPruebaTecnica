@@ -1,0 +1,47 @@
+﻿@model UcoPruebaTecnica.Models.Artist
+@{
+    ViewBag.Title = "Artista";
+    ViewData["Title"] = "Eliminación de Artista";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Gestión Artista</h1>
+    <div style="float:right">
+        <button class="btn btn-danger btn-sm" onclick="location.href = '../Artist/Index'"> X </button>
+    </div>
+    <br />
+    <br />
+    <div class="alert alert-@ViewBag.alerta"> -- <b>@ViewBag.res</b> --</div>
+</div>
+<div class="text-center">
+    <form action="/Artist/Eliminar" method="post">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" style="width: 124px" id="">Id</span>
+            </div>
+            <input type="text" class="form-control" name="idArtista" id="idArtista" maxlength="150" value="@Model.IdArtista" readonly>
+        </div>
+        <br />
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" style="width: 124px" id="">Nombre</span>
+            </div>
+            <input type="text" style="text-transform:uppercase" class="form-control" name="nombre" id="nombre" maxlength="150" value="@Model.Nombre" readonly required>
+        </div>
+        <br />
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" style="width: 124px" id="">Pais</span>
+            </div>
+            <input type="text" style="text-transform:uppercase" class="form-control" name="pais" id="pais" maxlength="150" value="@Model.Pais" readonly required>
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="">Casa Disquera</span>
+            </div>
+            <input type="text" style="text-transform:uppercase" class="form-control" name="casaDisquera" id="casaDisquera" maxlength="150" value="@Model.CasaDisquera" readonly required>
+        </div>
+        <br />
+        <div style="float:right">
+            <button class="btn btn-danger"> Eliminar </button>
+        </div>
+    </form>
+</div>

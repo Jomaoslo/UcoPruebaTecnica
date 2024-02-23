@@ -28,9 +28,11 @@ namespace UcoPruebaTecnica
 
             // Clases de Negocios
             services.AddSingleton<ArtistBusiness>();
+            services.AddSingleton<SongBusiness>();
 
             // Clases de Repositorios
             services.AddSingleton<ArtistRepository>();
+            services.AddSingleton<SongRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

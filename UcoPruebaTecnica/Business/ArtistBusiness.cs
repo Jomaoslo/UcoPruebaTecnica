@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using UcoPruebaTecnica.Models;
 using UcoPruebaTecnica.Repository;
 
@@ -92,6 +93,22 @@ namespace UcoPruebaTecnica.Business
                 response = new Response { State = false, Code = 400, Messsage = result };
             }
             return (response, artist);
+        }
+
+        /// Método consultar un artista por Id
+        public Artist GetArtistbyIdArtista(long idArtista)
+        {
+            Artist artist = new();
+            try
+            {
+                var response = GetArtist(string.Empty);
+                artist = response.Item2.Where(x => x.IdArtista == idArtista).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                string result = ex.Message.ToString();
+            }
+            return artist;
         }
     } 
 }

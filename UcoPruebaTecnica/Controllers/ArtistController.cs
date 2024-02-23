@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using UcoPruebaTecnica.Models;
-using System.Diagnostics;
 using UcoPruebaTecnica.Business;
-using System.Linq;
 
 namespace UcoPruebaTecnica.Controllers
 {
@@ -42,8 +40,6 @@ namespace UcoPruebaTecnica.Controllers
         [HttpPost]
         public IActionResult Nuevo(string nombre, string pais, string casaDisquera)
         {
-            ViewBag.alerta = "info";
-
             Artist artist = new()
             {
                 IdArtista = 0,
@@ -52,7 +48,10 @@ namespace UcoPruebaTecnica.Controllers
                 CasaDisquera = casaDisquera.ToUpper()
             };
             var response = _artistBusiness.AddArtist(artist);
+
+            ViewBag.alerta = "success";
             ViewBag.res = response.Messsage;
+
             if (!response.State)            
                 ViewBag.alerta = "danger";                
             
@@ -64,20 +63,13 @@ namespace UcoPruebaTecnica.Controllers
             ViewBag.alerta = "info";
             ViewBag.res = "Actualizar Artista";
 
-            var response = _artistBusiness.GetArtist(string.Empty);
-            if (!response.Item1.State)
-            {
-                ViewBag.alerta = "danger";
-                ViewBag.res = response.Item1.Messsage;
-            }            
-            return View(response.Item2.Where(x => x.IdArtista == idArtista).FirstOrDefault());
+            var response = _artistBusiness.GetArtistbyIdArtista(idArtista);
+            return View(response);
         }
 
         [HttpPost]
         public IActionResult Actualizar(long idArtista, string nombre, string pais, string casaDisquera)
         {
-            ViewBag.alerta = "info";
-
             Artist artist = new()
             {
                 IdArtista = idArtista,
@@ -86,30 +78,45 @@ namespace UcoPruebaTecnica.Controllers
                 CasaDisquera = casaDisquera.ToUpper()
             };
             var response = _artistBusiness.UpdArtist(artist);
+
+            ViewBag.alerta = "success";
             ViewBag.res = response.Messsage;
+
             if (!response.State)
                 ViewBag.alerta = "danger";
 
-            return View();
+            var resp = _artistBusiness.GetArtistbyIdArtista(idArtista);
+            return View(resp);
         }
 
         public IActionResult Eliminar(long idArtista)
         {
             ViewBag.alerta = "info";
-            ViewBag.res = "Actualizar Artista";
+            ViewBag.res = "Eliminar Artista";
 
+            var response = _artistBusiness.GetArtistbyIdArtista(idArtista);
+            return View(response);
+        }
+
+        [HttpPost]
+        public IActionResult Eliminar(long idArtista, string nombre, string pais, string casaDisquera)
+        {
             Artist artist = new()
             {
                 IdArtista = idArtista,
-                Nombre = string.Empty,
-                Pais = string.Empty,
-                CasaDisquera = string.Empty
+                Nombre = nombre,
+                Pais = pais,
+                CasaDisquera = casaDisquera
             };
             var response = _artistBusiness.DelArtist(artist);
+
+            ViewBag.alerta = "success";
             ViewBag.res = response.Messsage;
+
             if (!response.State)
                 ViewBag.alerta = "danger";
-            return View();
+
+            return View(artist);
         }
     }
 }

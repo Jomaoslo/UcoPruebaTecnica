@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using UcoPruebaTecnica.Models;
 using UcoPruebaTecnica.Repository;
 
@@ -96,6 +97,22 @@ namespace UcoPruebaTecnica.Business
                 response = new Response { State = false, Code = 400, Messsage = result };
             }
             return (response, song);
+        }
+
+        /// Método consultar una canción por Id
+        public Song GetSongbyIdCancion(long idCancion)
+        {
+            Song song = new();
+            try
+            {
+                var response = GetSong(string.Empty);
+                song = response.Item2.Where(x => x.IdCancion == idCancion).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                string result = ex.Message.ToString();
+            }
+            return song;
         }
     }
 }

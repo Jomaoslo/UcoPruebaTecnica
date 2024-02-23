@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Cancion";
+    ViewData["Title"] = "Listado de Canciones";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Gestión Canción</h1>
+    <div style="float:right">
+        <button class="btn btn-danger btn-sm" onclick="location.href = '../Song/Index'"> X </button>
+    </div>
+    <br />
+    <br />
+    <div class="alert alert-@ViewBag.alerta"> -- <b>@ViewBag.res</b> --</div>
+ </div>
+<div class="text-center">    
+    <form action="/Artist/Nuevo" method="post">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" style="width: 124px" id="">Nombre</span>
+            </div>
+            <input type="text" style="text-transform:uppercase" class="form-control" name="nombre" id="nombre" maxlength="150" required>
+        </div>
+        <br />
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" style="width: 124px" id="">Duración</span>
+            </div>
+            <input type="text" style="text-transform:uppercase" class="form-control" name="duracion" id="duracion" maxlength="20" required>         
+        </div>
+        <br />
+        <div style="float:right">
+            <button class="btn btn-success"> Guardar </button>
+        </div>
+    </form>
+</div>

@@ -1,6 +1,8 @@
-﻿@{
+﻿@model List<UcoPruebaTecnica.Models.Artist>
+@{
     ViewBag.Title = "Artista";
     ViewData["Title"] = "Listado de Artistas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="text-center">
@@ -11,4 +13,32 @@
     <br />
     <br />
     <div class="alert alert-@ViewBag.alerta"> -- <b>@ViewBag.res</b> --</div>
+</div>
+<div class="text-center">
+    <table id="tablaArtist" class="table table-bordered">
+        <thead>
+            <tr>
+                <td>Id</td>
+                <td>Nombre</td>
+                <td>Pais</td>
+                <td>Casa Disquera</td>
+                <td style="text-align: center; width: 160px">Acciones</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in Model)
+                {
+                    <tr>
+                        <td>@row.IdArtista</td>
+                        <td>@row.Nombre</td>
+                        <td>@row.Pais</td>
+                        <td>@row.CasaDisquera</td>
+                        <td style="text-align:right">
+                            <button class="btn btn-warning btn-sm" onclick="location.href = '../Artist/Actualizar?idArtista=@row.IdArtista'"> Editar </button>
+                            <button class="btn btn-danger btn-sm"  onclick="location.href = '../Artist/Eliminar?idArtista=@row.IdArtista'" > Eliminar </button>
+                        </td>
+                    </tr>
+                }
+        </tbody>
+    </table>
 </div>

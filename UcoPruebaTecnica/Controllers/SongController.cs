@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using UcoPruebaTecnica.Models;
 using UcoPruebaTecnica.Business;
+using System.Linq;
 
 namespace UcoPruebaTecnica.Controllers
 {
@@ -9,11 +10,13 @@ namespace UcoPruebaTecnica.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly SongBusiness _songBusiness;
+        private readonly ArtistBusiness _artistBusiness;
 
-        public SongController(ILogger<HomeController> logger, SongBusiness songBusiness)
+        public SongController(ILogger<HomeController> logger, SongBusiness songBusiness, ArtistBusiness artistBusiness)
         {
             _logger = logger;
             _songBusiness = songBusiness;
+            _artistBusiness = artistBusiness;
         }
 
         public IActionResult Index()
@@ -34,7 +37,8 @@ namespace UcoPruebaTecnica.Controllers
         {
             ViewBag.alerta = "info";
             ViewBag.res = "Registrar Nueva Canción";
-            return View();
+            var artist = _artistBusiness.GetArtist(string.Empty).Item2.OrderBy(x => x.Nombre).ToList();
+            return View(artist);
         }
 
         [HttpPost]
@@ -53,9 +57,10 @@ namespace UcoPruebaTecnica.Controllers
             ViewBag.res = response.Messsage;
 
             if (!response.State)         
-                ViewBag.alerta = "danger";                
-            
-            return View();
+                ViewBag.alerta = "danger";
+
+            var artist = _artistBusiness.GetArtist(string.Empty).Item2.OrderBy(x => x.Nombre).ToList();
+            return View(artist);
         }
 
         public IActionResult Actualizar(long idCancion)
@@ -63,7 +68,8 @@ namespace UcoPruebaTecnica.Controllers
             ViewBag.alerta = "info";
             ViewBag.res = "Actualizar Canción";
 
-            var song = _songBusiness.GetSongbyIdCancion(idCancion);                       
+            var song = _songBusiness.GetSongbyIdCancion(idCancion);
+            song.Artist = _artistBusiness.GetArtist(string.Empty).Item2.OrderBy(x => x.Nombre).ToList();
             return View(song);
         }
 
@@ -85,6 +91,7 @@ namespace UcoPruebaTecnica.Controllers
             if (!response.State)
                 ViewBag.alerta = "danger";
 
+            song.Artist = _artistBusiness.GetArtist(string.Empty).Item2.OrderBy(x => x.Nombre).ToList();
             return View(song);
         }
 
@@ -115,7 +122,7 @@ namespace UcoPruebaTecnica.Controllers
             if (!response.State)
                 ViewBag.alerta = "danger";
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Song");
         }
     }
 }

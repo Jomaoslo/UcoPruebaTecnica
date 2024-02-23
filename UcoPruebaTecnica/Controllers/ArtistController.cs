@@ -34,6 +34,7 @@ namespace UcoPruebaTecnica.Controllers
         {
             ViewBag.alerta = "info";
             ViewBag.res = "Registrar Nuevo Artista";
+            
             return View();
         }
 

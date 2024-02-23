@@ -1,4 +1,6 @@
-﻿namespace UcoPruebaTecnica.Models
+﻿using System.Collections.Generic;
+
+namespace UcoPruebaTecnica.Models
 {
     /// Entidad para almacenar los datos de los repositorios y su total de commits
     public class Song
@@ -8,5 +10,7 @@
         public string NombreArtista { get; set; }
         public string Nombre { get; set; } 
         public string Duracion { get; set; }
+
+        public List<Artist> Artist;
     }    
 }

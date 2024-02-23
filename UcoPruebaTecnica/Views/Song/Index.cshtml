@@ -1,44 +1,44 @@
 ﻿@model List<UcoPruebaTecnica.Models.Song>
 @{
-    ViewBag.Title = "Artista";
+    ViewBag.Title = "Canción";
     ViewData["Title"] = "Listado de Canciones";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Gestión de Canciones</h1>
+    <h1 class="display-4">Gestión Canciones</h1>
     <div style="float:right">
-        <button class="btn btn-primary" onclick="location.href = '../Song/Nuevo'"> Nuevo </button>
+        <button class="btn btn-primary btn-sm" onclick="location.href = '../Song/Nuevo'"> Nuevo </button>
     </div>
     <br />
     <br />
     <div class="alert alert-@ViewBag.alerta"> -- <b>@ViewBag.res</b> --</div>
 </div>
 <div class="text-center">
-    <table id="tablaArtist" class="table table-bordered">
+    <table id="tablaCancion" class="table table-bordered">
         <thead>
             <tr>
                 <td>Id</td>
                 <td>Nombre</td>
-                <td>Pais</td>
-                <td>Casa Disquera</td>
-                <td style="text-align:center" >Acciones</td>
+                <td>Duracion</td>
+                <td>Artista</td>
+                <td style="text-align: center; width: 160px">Acciones</td>
             </tr>
         </thead>
         <tbody>
-            @*@foreach (var row in Model)
+            @foreach (var row in Model)
             {
                 <tr>
-                    <td>@row.IdArtista</td>
+                    <td>@row.IdCancion</td>
                     <td>@row.Nombre</td>
-                    <td>@row.Pais</td>
-                    <td>@row.CasaDisquera</td>
-                    <td style="text-align:center">
-                        <button class="btn btn-warning btn-sm" onclick="location.href = '../Song/Index'"> Editar </button>
-                        <button class="btn btn-danger btn-sm" onclick="location.href = '../Song/Index'"> Eliminar </button>
+                    <td>@row.Duracion</td>
+                    <td>@row.NombreArtista</td>
+                    <td style="text-align:right">
+                        <button class="btn btn-warning btn-sm" onclick="location.href = '../Song/Actualizar?idCancion=@row.IdCancion'"> Editar </button>
+                        <button class="btn btn-danger btn-sm" onclick="location.href = '../Song/Eliminar?idCancion=@row.IdCancion'"> Eliminar </button>
                     </td>
                 </tr>
-            }*@
+            }
         </tbody>
     </table>
 </div>

@@ -63,8 +63,8 @@ namespace UcoPruebaTecnica.Controllers
             ViewBag.alerta = "info";
             ViewBag.res = "Actualizar Artista";
 
-            var response = _artistBusiness.GetArtistbyIdArtista(idArtista);
-            return View(response);
+            var artist = _artistBusiness.GetArtistbyIdArtista(idArtista);
+            return View(artist);
         }
 
         [HttpPost]
@@ -85,17 +85,16 @@ namespace UcoPruebaTecnica.Controllers
             if (!response.State)
                 ViewBag.alerta = "danger";
 
-            var resp = _artistBusiness.GetArtistbyIdArtista(idArtista);
-            return View(resp);
+            return View(artist);
         }
 
         public IActionResult Eliminar(long idArtista)
         {
-            ViewBag.alerta = "info";
-            ViewBag.res = "Eliminar Artista";
+            ViewBag.alerta = "warning";
+            ViewBag.res = "¿Está seguro que desea eliminar el artista?";
 
-            var response = _artistBusiness.GetArtistbyIdArtista(idArtista);
-            return View(response);
+            var artist = _artistBusiness.GetArtistbyIdArtista(idArtista);
+            return View(artist);
         }
 
         [HttpPost]
@@ -104,9 +103,9 @@ namespace UcoPruebaTecnica.Controllers
             Artist artist = new()
             {
                 IdArtista = idArtista,
-                Nombre = nombre,
-                Pais = pais,
-                CasaDisquera = casaDisquera
+                Nombre = nombre.ToUpper(),
+                Pais = pais.ToUpper(),
+                CasaDisquera = casaDisquera.ToUpper()
             };
             var response = _artistBusiness.DelArtist(artist);
 
@@ -116,7 +115,7 @@ namespace UcoPruebaTecnica.Controllers
             if (!response.State)
                 ViewBag.alerta = "danger";
 
-            return View(artist);
+            return RedirectToAction("Index");
         }
     }
 }

@@ -1,0 +1,56 @@
+﻿@model UcoPruebaTecnica.Models.Song
+@{
+    ViewBag.Title = "Canción";
+    ViewData["Title"] = "Eliminación de Canción";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Gestión Canción</h1>
+    <div style="float:right">
+        <button class="btn btn-danger btn-sm" onclick="location.href = '../Song/Index'"> X </button>
+    </div>
+    <br />
+    <br />
+    <div class="alert alert-@ViewBag.alerta"> -- <b>@ViewBag.res</b> --</div>
+</div>
+<div class="text-center">
+    <form action="/Song/Eliminar" method="post">
+        <div class="input-group" style="width: 230px;">
+            <div class="input-group-prepend">
+                <span class="input-group-text" style="width: 124px" id="">Id</span>
+            </div>
+            <input type="text" class="form-control" name="idCancion" id="idCancion" maxlength="150" value="@Model.IdCancion" readonly>
+        </div>
+        <br />
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" style="width: 124px" id="">Nombre</span>
+            </div>
+            <input type="text" style="text-transform:uppercase" class="form-control" name="nombre" id="nombre" maxlength="150" value="@Model.Nombre" readonly>
+        </div>
+        <br />
+        <div class="input-group" style="width: 230px;">
+            <div class="input-group-prepend">
+                <span class="input-group-text" style="width: 124px" id="">Duración</span>
+            </div>
+            <input type="text" style="text-transform:uppercase" class="form-control" name="duracion" id="duracion" maxlength="20" value="@Model.Duracion" readonly>
+        </div>
+        <br />
+        <div class="input-group" style="width: 230px;display:none">
+            <div class="input-group-prepend">
+                <span class="input-group-text" style="width: 124px" id="">Id</span>
+            </div>
+            <input type="text" class="form-control" name="idArtista" id="idArtista" maxlength="150" value="@Model.IdArtista" readonly>
+        </div>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text" style="width: 124px" id="">Artista</span>
+            </div>
+            <input type="text" style="text-transform:uppercase" class="form-control" name="duracion" id="nombreArtista" maxlength="20" value="@Model.NombreArtista" readonly>
+        </div>
+        <br />
+        <div style="float:right">
+            <button class="btn btn-danger"> Eliminar </button>
+        </div>
+    </form>
+</div>
